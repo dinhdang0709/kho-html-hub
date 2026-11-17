@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VĐĐ GreenCode Studio – Kho Dự Án Code HTML5 & Master Prompts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <style>
+/* ==========================================================================
+   VĐĐ GREENCODE STUDIO - MODERN EMERALD & WHITE TECH DESIGN SYSTEM
+   Palette:
+   - Deep Green: #166534
+   - Primary Green: #22C55E
+   - Light Green: #DCFCE7
+   - White: #FFFFFF
+   - Secondary Surface: #F8FAF8
+   - Text Primary: #17251C
+   ========================================================================== */
+
+:root {
+  --green-dark: #166534;
+  --green-primary: #22C55E;
+  --green-hover: #16A34A;
+  --green-light: #DCFCE7;
+  --bg-main: #FFFFFF;
+  --bg-sub: #F8FAF8;
+  --bg-card: rgba(255, 255, 255, 0.92);
+  --bg-glass: rgba(255, 255, 255, 0.85);
+  --text-main: #17251C;
+  --text-muted: #4B6353;
+  --border-color: rgba(22, 101, 52, 0.14);
+  --border-strong: rgba(34, 197, 94, 0.38);
+  --shadow-soft: 0 12px 32px -8px rgba(22, 101, 52, 0.08);
+  --shadow-glow: 0 16px 40px -10px rgba(34, 197, 94, 0.22);
+  --radius-xl: 22px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-pill: 9999px;
+}
+
+html.dark {
+  --bg-main: #0B150F;
+  --bg-sub: #112017;
+  --bg-card: rgba(18, 34, 24, 0.92);
+  --bg-glass: rgba(14, 27, 19, 0.86);
+  --text-main: #F0FDF4;
+  --text-muted: #A7F3D0;
+  --border-color: rgba(34, 197, 94, 0.22);
+  --border-strong: rgba(34, 197, 94, 0.5);
+  --shadow-soft: 0 14px 36px -8px rgba(0, 0, 0, 0.55);
+  --shadow-glow: 0 16px 44px -8px rgba(34, 197, 94, 0.28);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-sub);
+  color: var(--text-main);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  position: relative;
+}
+
+.font-serif-display {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-mono-code {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Subtle Ambient Background Orbs */
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.45;
+  animation: floatOrb 18s ease-in-out infinite alternate;
+}
+
+.ambient-orb-1 {
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, #DCFCE7 0%, rgba(34, 197, 94, 0.15) 70%);
+  top: -120px;
+  left: -100px;
+}
+
+.ambient-orb-2 {
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, rgba(34, 197, 94, 0.22) 0%, rgba(22, 101, 52, 0.05) 70%);
+  bottom: 8%;
+  right: -80px;
+  animation-delay: -6s;
+}
+
+html.dark .ambient-orb {
+  opacity: 0.18;
+}
+
+@keyframes floatOrb {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(40px, 30px) scale(1.08); }
+}
+
+/* Loading Overlay */
+#loader-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-main);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+  animation: autoHideLoader 0.6s ease 0.45s forwards;
+  pointer-events: none;
+}
+
+@keyframes autoHideLoader {
+  to { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+
+#loader-overlay.hidden-loader {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-ring {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 4px solid var(--green-light);
+  border-top-color: var(--green-primary);
+  animation: spinRing 0.85s linear infinite;
+}
+
+@keyframes spinRing {
+  to { transform: rotate(360deg); }
+}
+
+/* Glassmorphism Sticky Header */
+.studio-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-color);
+  transition: box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+.studio-header.scrolled {
+  box-shadow: var(--shadow-soft);
+}
+
+.pill-box {
+  background: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-pill);
+  padding: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-pill-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.88rem;
+  padding: 7px 16px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-pill-btn:hover {
+  color: var(--green-dark);
+}
+
+html.dark .nav-pill-btn:hover {
+  color: var(--green-primary);
+}
+
+.nav-pill-btn.active {
+  background: var(--green-dark);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(22, 101, 52, 0.25);
+}
+
+/* Cards & Showcase Layout */
+.studio-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.studio-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-glow);
+  border-color: var(--border-strong);
+}
+
+.hero-Left-Card {
+  background: linear-gradient(155deg, var(--bg-main) 0%, var(--bg-sub) 65%, rgba(220, 252, 231, 0.65) 100%);
+}
+
+html.dark .hero-Left-Card {
+  background: linear-gradient(155deg, #112218 0%, #0D1912 65%, rgba(22, 101, 52, 0.35) 100%);
+}
+
+.hero-Right-Card {
+  background: radial-gradient(circle at top right, rgba(34, 197, 94, 0.16), transparent 60%), var(--bg-card);
+}
+
+/* Primary & Secondary Buttons */
+.btn-emerald {
+  background: linear-gradient(135deg, var(--green-primary) 0%, var(--green-dark) 100%);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 10px 22px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  box-shadow: 0 6px 18px rgba(34, 197, 94, 0.28);
+}
+
+.btn-emerald:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  box-shadow: 0 10px 24px rgba(22, 101, 52, 0.35);
+}
+
+.btn-emerald:active {
+  transform: translateY(0);
+}
+
+.btn-outline-emerald {
+  background: var(--bg-main);
+  color: var(--green-dark);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  padding: 9px 18px;
+  font-weight: 600;
+  font-size: 0.88rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+html.dark .btn-outline-emerald {
+  color: var(--green-light);
+}
+
+.btn-outline-emerald:hover {
+  background: var(--green-light);
+  color: var(--green-dark);
+  transform: translateY(-1px);
+}
+
+/* Badge Styles */
+.badge-emerald {
+  background: var(--green-light);
+  color: var(--green-dark);
+  border: 1px solid rgba(22, 101, 52, 0.2);
+  border-radius: var(--radius-pill);
+  padding: 5px 13px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green-primary);
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  animation: pulseGreen 2s infinite;
+}
+
+@keyframes pulseGreen {
+  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+  70% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+/* Scroll Reveal Animation */
+.reveal-item {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-item.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Floating Quick Action Pills */
+.floating-pill-left {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 90;
+}
+
+.floating-pill-right {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Modal Backdrop */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 29, 20, 0.68);
+  backdrop-filter: blur(8px);
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal-backdrop.open {
+  display: flex;
+  animation: fadeInModal 0.22s ease forwards;
+}
+
+@keyframes fadeInModal {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Toast Notification Container */
+#toast-container {
+  position: fixed;
+  top: 84px;
+  right: 20px;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 360px;
+}
+
+.toast-item {
+  background: var(--bg-main);
+  color: var(--text-main);
+  border-left: 4px solid var(--green-primary);
+  border-top: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  box-shadow: var(--shadow-glow);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  animation: slideInToast 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideInToast {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .floating-pill-left,
+  .floating-pill-right {
+    bottom: 12px;
+  }
+  .floating-pill-left { left: 12px; }
+  .floating-pill-right { right: 12px; }
+}
+
+  </style>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loader-overlay" aria-label="Đang tải giao diện">
+    <div class="loader-ring mb-3"></div>
+    <p class="font-bold text-sm" style="color: var(--green-dark);">VĐĐ GREENCODE STUDIO • ĐANG ĐỒNG BỘ...</p>
+  </div>
+
+  <!-- Ambient Background Orbs -->
+  <div class="ambient-bg">
+    <div class="ambient-orb ambient-orb-1"></div>
+    <div class="ambient-orb ambient-orb-2"></div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" aria-live="polite"></div>
+
+  <!-- Top Navigation Bar (Inspired by Reference Image) -->
+  <header id="main-header" class="studio-header">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
+      <!-- Brand Identity -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center font-extrabold text-white shadow-md"
+             style="background: linear-gradient(135deg, #22C55E, #166534);">
+          VĐ
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold text-base tracking-tight">Vương Đình Đăng</span>
+            <span class="text-xs font-extrabold px-2 py-0.5 rounded-md"
+                  style="background: #DCFCE7; color: #166534; border: 1px solid rgba(22,101,52,0.25);">
+              STUDIO
+            </span>
+          </div>
+          <p class="text-xs opacity-75 hidden sm:block">Kho Lưu Trữ File Code HTML5 • Học Tập Khối A01 & GitHub Pages</p>
+        </div>
+      </div>
+
+      <!-- Center Navigation Pill -->
+      <nav class="pill-box hidden md:inline-flex" aria-label="Điều hướng chính">
+        <button type="button" class="nav-pill-btn active" data-tab="home" onclick="switchSectionTab('home')">Trang chủ</button>
+        <button type="button" class="nav-pill-btn" data-tab="projects" onclick="switchSectionTab('projects')">Kho Code HTML</button>
+        <button type="button" class="nav-pill-btn" data-tab="deploy" onclick="switchSectionTab('deploy')">GitHub Pages</button>
+      </nav>
+
+      <!-- Right Status & Profile Pill -->
+      <div class="flex items-center gap-2">
+        <div class="pill-box px-3 py-1.5 hidden lg:inline-flex items-center gap-2 text-xs font-semibold">
+          <span class="pulse-dot"></span>
+          <span style="color: var(--green-dark);">Đồng bộ</span>
+          <span class="opacity-30">|</span>
+          <button type="button" id="theme-toggle-btn" class="cursor-pointer font-semibold bg-transparent border-0" onclick="toggleDarkMode()">
+            🌙 Tối
+          </button>
+          <span class="opacity-30">|</span>
+          <span>🇻🇳 VI</span>
+        </div>
+
+        <div class="pill-box px-3 py-1 flex items-center gap-2">
+          <span id="header-points-val" class="text-xs font-extrabold" style="color: var(--green-dark);">4.000 Điểm Xanh</span>
+          <button type="button" class="text-xs font-bold px-2.5 py-1 rounded-full text-white cursor-pointer border-0"
+                  style="background: #22C55E;" onclick="addGreenPoints()">
+            + NHẬN
+          </button>
+        </div>
+
+        <div class="pill-box px-2.5 py-1 hidden sm:inline-flex items-center gap-2">
+          <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white"
+                style="background: #166534;">V</span>
+          <span class="text-xs font-bold max-w-[120px] truncate">Vương Đình Đăng</span>
+        </div>
+
+        <button type="button" id="mobile-menu-btn" class="md:hidden btn-outline-emerald px-3 py-1.5 text-xs" aria-label="Mở menu">
+          ☰ Menu
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-nav-drawer" class="hidden md:hidden px-4 pb-4 pt-1 border-t border-emerald-900/10 bg-white/95 dark:bg-emerald-950/95">
+      <div class="flex flex-col gap-2">
+        <button type="button" class="btn-outline-emerald w-full justify-start" onclick="switchSectionTab('home')">🏠 Trang chủ & Hero</button>
+        <button type="button" class="btn-outline-emerald w-full justify-start" onclick="switchSectionTab('projects')">💻 Kho dự án Code HTML</button>
+        <button type="button" class="btn-outline-emerald w-full justify-start" onclick="switchSectionTab('deploy')">🚀 Triển khai GitHub Pages</button>
+        <button type="button" class="btn-outline-emerald w-full justify-start" onclick="toggleDarkMode()">🌓 Đổi chế độ Sáng / Tối</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-12">
+
+    <!-- TWO-COLUMN HERO SHOWCASE (Matched to Reference Image Layout) -->
+    <section id="hero-showcase-section" class="reveal-item">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+
+        <!-- Left Hero Card (5 Columns) -->
+        <div class="studio-card hero-Left-Card lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between">
+          <div>
+            <div class="badge-emerald mb-4">
+              <span>⚡</span>
+              <span>VĐĐ GreenCode Studio • Hộp Công Cụ HTML5 & Master Prompts</span>
+            </div>
+
+            <p class="text-xs font-extrabold tracking-widest uppercase mb-2" style="color: var(--green-dark);">
+              MASTER HTML5 REPOSITORY • ZERO-MAINTENANCE
+            </p>
+
+            <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight mb-3">
+              HỘP CÔNG CỤ <br>DỰ ÁN WEB Tác Chiến
+            </h1>
+
+            <div class="w-12 h-1 rounded-full mb-3" style="background: var(--green-primary);"></div>
+
+            <p class="font-serif-display italic text-2xl sm:text-3xl font-bold mb-4" style="color: var(--green-dark);">
+              1-Click Chạy & Dùng Ngay
+            </p>
+
+            <p class="text-sm opacity-90 leading-relaxed mb-6">
+              Đóng gói toàn bộ các dự án HTML5, Canvas 2D Game, Slide thuyết trình lớp 12A3 và công cụ giải nhanh Toán – Lý – Anh thành kho lưu trữ 1-File HTML chuẩn chỉnh. Sao chép mã nguồn, chạy thử trực tiếp ngay trên trình duyệt và xuất bản công khai lên GitHub Pages!
+            </p>
+          </div>
+
+          <!-- Integrated Search Bar inside Left Hero Card -->
+          <div class="pt-2">
+            <div class="p-1.5 rounded-full flex items-center gap-2 border border-emerald-800/20 bg-white dark:bg-emerald-950/80 shadow-sm">
+              <input id="hero-search-input" type="text"
+                     placeholder="Tìm Slide 12A3, Jet Jet, Máy biến áp, Toán Oxyz..."
+                     class="w-full px-4 py-2 text-sm bg-transparent border-0 focus:outline-none"
+                     aria-label="Tìm dự án HTML">
+              <button type="button" class="btn-emerald shrink-0 py-2 px-5 text-xs" onclick="switchSectionTab('projects')">
+                Tìm sản phẩm
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Featured Showcase + Bottom 3 Info Cards (7 Columns) -->
+        <div class="lg:col-span-7 flex flex-col justify-between gap-6">
+
+          <!-- Top Featured Showcase Card -->
+          <div class="studio-card hero-Right-Card p-6 sm:p-8 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-4">
+                <span class="badge-emerald">
+                  <span class="pulse-dot"></span>
+                  🌟 DỰ ÁN TIÊU BIỂU • NHÓM 7 12A3
+                </span>
+                <span class="text-xs font-semibold opacity-75">• Mã nguồn HTML5 chính chủ</span>
+              </div>
+
+              <h2 class="text-2xl sm:text-3xl font-extrabold leading-snug mb-3">
+                SLIDE THÀNH TỰU KINH TẾ – XÃ HỘI TP.HCM (2021–2026) & BỘ MÔ PHỎNG TƯƠNG TÁC 1-FILE HTML
+              </h2>
+
+              <p class="text-sm opacity-85 leading-relaxed mb-6">
+                Kiệt tác bài thuyết trình tương tác HTML5 của Nhóm 7 – Lớp 12A3 cùng trọn bộ trò chơi giáo dục 2D, mô phỏng nối dây máy biến áp và công cụ tính toán Oxyz. Trọn vẹn giao diện xanh lá – trắng hiện đại, mở khóa tức thì và chạy mượt trên mọi thiết bị!
+              </p>
+            </div>
+
+            <div>
+              <div class="pt-5 border-t border-emerald-900/10 flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-baseline gap-2.5">
+                  <span class="text-2xl sm:text-3xl font-extrabold" style="color: var(--green-dark);">MIỄN PHÍ</span>
+                  <span class="text-sm line-through opacity-50">500 Điểm</span>
+                  <span class="text-xs font-extrabold px-2.5 py-1 rounded-md"
+                        style="background: #DCFCE7; color: #166534;">
+                    OPEN SOURCE -100%
+                  </span>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-2.5">
+                  <button type="button" class="btn-outline-emerald" onclick="handleCopyProjectHtml('hcmc-12a3-slide')">
+                    📋 Copy 1-File HTML
+                  </button>
+                  <button type="button" class="btn-emerald" onclick="openLiveSandbox('hcmc-12a3-slide')">
+                    Xem & Chạy thử ngay →
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Feature Strip (Mirrors Bottom Cards in Reference Image) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="studio-card p-4 flex items-center gap-3.5 cursor-pointer" onclick="addGreenPoints()">
+              <div class="w-11 h-11 rounded-xl flex items-center justify-center text-lg shrink-0"
+                   style="background: #DCFCE7; color: #166534;">
+                🪙
+              </div>
+              <div>
+                <h3 class="font-bold text-sm">Ví Điểm Xanh Tự Động 24/7</h3>
+                <p class="text-xs opacity-75">Nhận điểm thưởng học tập & mở khóa toàn bộ mẫu code HTML tức thì</p>
+              </div>
+            </div>
+
+            <div class="studio-card p-4 flex items-center gap-3.5 cursor-pointer" onclick="switchSectionTab('deploy')">
+              <div class="w-11 h-11 rounded-xl flex items-center justify-center text-lg shrink-0"
+                   style="background: #DCFCE7; color: #166534;">
+                ⚡
+              </div>
+              <div>
+                <h3 class="font-bold text-sm">Triển Khai GitHub Pages Tức Thì</h3>
+                <p class="text-xs opacity-75">Tải trọn bộ file chuẩn /(root) & tạo link công khai trong 1 phút</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: INTERACTIVE HTML PROJECTS CATALOG -->
+    <section id="projects-catalog-section" class="reveal-item space-y-6">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <span class="badge-emerald mb-2">📂 KHO LƯU TRỮ DỰ ÁN THỰC TẾ</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold">Danh Sách File Code HTML Đã Hoàn Thiện</h2>
+          <p id="projects-count-label" class="text-sm opacity-75 mt-1">Hiển thị 6 / 6 dự án HTML tương tác</p>
+        </div>
+
+        <!-- Category Filter Pills -->
+        <div class="pill-box flex-wrap">
+          <button type="button" class="nav-pill-btn cat-filter-btn active" data-cat="All" onclick="filterByCategory('All')">Tất cả</button>
+          <button type="button" class="nav-pill-btn cat-filter-btn" data-cat="Presentation" onclick="filterByCategory('Presentation')">Slide 12A3</button>
+          <button type="button" class="nav-pill-btn cat-filter-btn" data-cat="Game 2D" onclick="filterByCategory('Game 2D')">Game 2D</button>
+          <button type="button" class="nav-pill-btn cat-filter-btn" data-cat="Simulation" onclick="filterByCategory('Simulation')">Mô phỏng</button>
+          <button type="button" class="nav-pill-btn cat-filter-btn" data-cat="Study Tool" onclick="filterByCategory('Study Tool')">Toán – Lý – Anh</button>
+        </div>
+      </div>
+
+      <!-- Dynamic Cards Grid -->
+      <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- SECTION 3: 1-CLICK MASTER PROMPTS & CHEAT SHEETS -->
+    <section class="reveal-item space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <span class="badge-emerald mb-2">✨ MASTER AI PROMPT TOOLBOX</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold">Bộ Câu Lệnh Master Prompts & Cheat Sheets Thực Chiến</h2>
+          <p class="text-sm opacity-75 mt-1">1-Click sao chép dùng ngay để tái tạo giao diện web, slide thuyết trình và game học tập</p>
+        </div>
+      </div>
+
+      <div id="master-prompts-list" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+    </section>
+
+    <!-- SECTION 4: ADD / UPLOAD NEW HTML FILE WITH VALIDATION -->
+    <section id="upload-html-section" class="reveal-item">
+      <div class="studio-card p-6 sm:p-8">
+        <div class="max-w-3xl">
+          <span class="badge-emerald mb-2">➕ ĐÓNG GÓP & LƯU TRỮ CODE MỚI</span>
+          <h2 class="text-2xl font-extrabold mb-2">Tải Lên Hoặc Dán Thêm File HTML Mới Vào Kho Chung</h2>
+          <p class="text-sm opacity-80 mb-6">
+            Chọn trực tiếp một file <code>.html</code> từ máy tính hoặc dán đoạn mã nguồn vào bên dưới để kiểm tra trực tiếp trong khung Live Sandbox và chia sẻ cùng mọi người.
+          </p>
+        </div>
+
+        <form id="add-project-form" onsubmit="handleCreateCustomProject(event)" class="space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="md:col-span-2">
+              <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" for="new-proj-title">Tên dự án HTML (*)</label>
+              <input id="new-proj-title" type="text" placeholder="Ví dụ: Mô phỏng Sóng cơ Vật Lý 12..."
+                     class="w-full px-4 py-2.5 rounded-xl border border-emerald-800/20 bg-white dark:bg-emerald-950/60 text-sm focus:outline-none">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" for="new-proj-category">Phân loại chuyên mục</label>
+              <select id="new-proj-category"
+                      class="w-full px-4 py-2.5 rounded-xl border border-emerald-800/20 bg-white dark:bg-emerald-950/60 text-sm focus:outline-none">
+                <option value="Presentation">Slide thuyết trình</option>
+                <option value="Game 2D">Game 2D tương tác</option>
+                <option value="Simulation">Mô phỏng Kỹ thuật / Vật lý</option>
+                <option value="Study Tool">Công cụ Toán – Lý – Anh</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" for="new-proj-summary">Mô tả ngắn gọn</label>
+              <input id="new-proj-summary" type="text" placeholder="Giới thiệu chức năng chính của file HTML..."
+                     class="w-full px-4 py-2.5 rounded-xl border border-emerald-800/20 bg-white dark:bg-emerald-950/60 text-sm focus:outline-none">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" for="html-file-picker">Hoặc chọn nhanh file .html từ máy tính</label>
+              <input id="html-file-picker" type="file" accept=".html,.htm" onchange="handleHtmlFileUpload(event)"
+                     class="w-full text-xs file:mr-3 file:py-2 file:px-4 file:rounded-full file:border-0 file:font-bold file:bg-emerald-100 file:text-emerald-900 cursor-pointer">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" for="new-proj-code">Mã nguồn HTML (*)</label>
+            <textarea id="new-proj-code" rows="5"
+                      placeholder="<!DOCTYPE html><html><body><h1>Xin chào GreenCode Studio!</h1></body></html>"
+                      class="w-full p-4 rounded-xl border border-emerald-800/20 bg-white dark:bg-emerald-950/60 text-xs font-mono-code focus:outline-none"></textarea>
+          </div>
+
+          <p id="form-error-msg" class="hidden text-xs font-bold text-red-600"></p>
+
+          <div class="flex flex-wrap items-center gap-3 pt-1">
+            <button type="submit" class="btn-emerald">
+              🚀 Lưu vào kho & Chạy thử ngay
+            </button>
+            <button type="button" class="btn-outline-emerald" onclick="document.getElementById('new-proj-code').value='<!DOCTYPE html>\n<html>\n<body style=&quot;font-family:sans-serif;text-align:center;padding:40px;background:#DCFCE7;color:#166534;&quot;>\n  <h1>🌿 Bản Thử Nghiệm HTML Mới</h1>\n  <p>Tạo bởi Vương Đình Đăng trên GreenCode Studio</p>\n</body>\n</html>';document.getElementById('new-proj-title').value='Bản Thử Nghiệm GreenCode Mới';showToast('Đã điền sẵn mẫu HTML thử nghiệm!');">
+              ✨ Điền mẫu HTML nhanh
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- SECTION 5: GITHUB PAGES DEPLOYMENT CENTER -->
+    <section id="github-deploy-section" class="reveal-item">
+      <div class="studio-card p-6 sm:p-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div class="lg:col-span-6 space-y-4">
+            <span class="badge-emerald">🌐 TRIỂN KHAI CÔNG KHAI TRÊN GITHUB PAGES</span>
+            <h2 class="text-2xl font-extrabold">Trình Tạo Lệnh & Kiểm Tra Đường Dẫn GitHub Pages</h2>
+            <p class="text-sm opacity-85">
+              Bộ mã nguồn của website này đã được chuẩn hóa cấu trúc thư mục gốc (<code>index.html</code>, <code>style.css</code>, <code>script.js</code>, <code>assets/</code>, <code>README.md</code>) để triển khai trực tiếp lên GitHub Pages ở chế độ Public.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              <div>
+                <label class="block text-xs font-bold uppercase mb-1" for="gh-username-input">GitHub Username của bạn</label>
+                <input id="gh-username-input" type="text" value="vuongdinhdang" oninput="generateGitHubCommands()"
+                       class="w-full px-3.5 py-2 rounded-xl border border-emerald-800/20 bg-white dark:bg-emerald-950/60 text-sm font-mono-code">
+              </div>
+              <div>
+                <label class="block text-xs font-bold uppercase mb-1" for="gh-reponame-input">Tên Repository Public</label>
+                <input id="gh-reponame-input" type="text" value="greencode-html-hub" oninput="generateGitHubCommands()"
+                       class="w-full px-3.5 py-2 rounded-xl border border-emerald-800/20 bg-white dark:bg-emerald-950/60 text-sm font-mono-code">
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-emerald-50/90 dark:bg-emerald-950/60 border border-emerald-800/15 space-y-2 text-xs">
+              <div class="flex items-center justify-between gap-2">
+                <span class="font-bold">🔗 Link Repository Public:</span>
+                <span id="gh-repo-url-preview" class="font-mono-code font-bold text-emerald-800 dark:text-emerald-300">https://github.com/vuongdinhdang/greencode-html-hub</span>
+              </div>
+              <div class="flex items-center justify-between gap-2">
+                <span class="font-bold">🌍 Link Website GitHub Pages:</span>
+                <span id="gh-public-url-preview" class="font-mono-code font-bold text-emerald-800 dark:text-emerald-300">https://vuongdinhdang.github.io/greencode-html-hub/</span>
+              </div>
+            </div>
+
+            <div class="space-y-2 text-xs">
+              <p class="font-bold uppercase tracking-wider opacity-75">Quy trình 6 bước bật GitHub Pages chuẩn:</p>
+              <ol class="list-decimal list-inside space-y-1.5 opacity-90">
+                <li>Tạo repository mới ở chế độ <strong>Public</strong> tại <a href="https://github.com/new" target="_blank" rel="noopener noreferrer" class="underline font-bold" style="color: var(--green-dark);">github.com/new</a>.</li>
+                <li>Tải lên các file trong gói mã nguồn (đảm bảo <code>index.html</code> nằm ngay ở thư mục gốc <code>/(root)</code>).</li>
+                <li>Mở mục <strong>Settings → Pages</strong> trên thanh công cụ của repository.</li>
+                <li>Tại mục <strong>Build and deployment</strong>, chọn <strong>Deploy from a branch</strong>.</li>
+                <li>Chọn nhánh <strong>main</strong> và thư mục <strong>/(root)</strong> rồi nhấn <strong>Save</strong>.</li>
+                <li>Chờ 30–60 giây để GitHub Actions hoàn tất xuất bản link công khai.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="lg:col-span-6 flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold uppercase tracking-wider">Lệnh Git Terminal tự động hóa</span>
+                <button type="button" class="btn-outline-emerald py-1 px-3 text-xs"
+                        onclick="copyTextToClipboard(document.getElementById('gh-cli-commands').textContent, 'bộ lệnh triển khai Git')">
+                  📋 Copy lệnh Git
+                </button>
+              </div>
+              <pre id="gh-cli-commands" class="p-4 rounded-xl bg-emerald-950 text-emerald-100 font-mono-code text-xs overflow-x-auto leading-relaxed"></pre>
+            </div>
+
+            <div class="p-4 rounded-xl border border-emerald-800/20 bg-white/80 dark:bg-emerald-950/40 space-y-2">
+              <h3 class="font-bold text-sm">📦 Cấu trúc thư mục chuẩn trong gói ZIP đính kèm:</h3>
+              <pre class="text-xs font-mono-code opacity-85">website/
+├── index.html       (Trang chủ & trình chạy Live Sandbox)
+├── style.css        (Hệ thống thiết kế Xanh lá – Trắng & Responsive)
+├── script.js        (Bộ lọc, Điểm Xanh, Upload HTML & Toast)
+├── assets/
+│   ├── images/      (Banner SVG minh họa dự án)
+│   ├── icons/       (Biểu tượng hệ thống)
+│   └── fonts/       (Cấu hình phông chữ Inter & JetBrains Mono)
+└── README.md        (Hướng dẫn sử dụng & cập nhật về sau)</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="relative z-10 border-t border-emerald-900/10 py-8 mt-12 bg-white/70 dark:bg-emerald-950/70">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs opacity-80">
+      <div>
+        <strong>VĐĐ GreenCode Studio</strong> • Xây dựng bởi Vương Đình Đăng (Lớp 12 • GDPT 2018)
+      </div>
+      <div class="flex items-center gap-4">
+        <button type="button" class="underline cursor-pointer bg-transparent border-0" onclick="switchSectionTab('home')">Trang chủ</button>
+        <button type="button" class="underline cursor-pointer bg-transparent border-0" onclick="switchSectionTab('projects')">Kho Code HTML</button>
+        <button type="button" class="underline cursor-pointer bg-transparent border-0" onclick="switchSectionTab('deploy')">GitHub Pages</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Left Quick Helper Pill (Mirrors Reference Image Bottom-Left Pill) -->
+  <div class="floating-pill-left">
+    <button type="button" class="btn-emerald py-2.5 px-4 text-xs shadow-lg" onclick="switchSectionTab('upload-html-section'); document.getElementById('upload-html-section').scrollIntoView({behavior:'smooth'});">
+      <span>🛡️</span>
+      <span>Thêm File HTML Mới</span>
+    </button>
+  </div>
+
+  <!-- Floating Right Action Pill & Scroll-To-Top (Mirrors Reference Image Bottom-Right Pill) -->
+  <div class="floating-pill-right">
+    <button type="button" id="back-to-top-btn" style="display:none;" class="btn-outline-emerald py-2.5 px-3.5 text-xs shadow-md"
+            onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Lên đầu trang">
+      ↑ Đầu trang
+    </button>
+    <button type="button" class="btn-outline-emerald py-2.5 px-4 text-xs shadow-lg bg-white dark:bg-emerald-950"
+            onclick="switchSectionTab('deploy')">
+      <span class="pulse-dot"></span>
+      <span>GitHub Pages Ready</span>
+    </button>
+  </div>
+
+  <!-- LIVE SANDBOX & SOURCE CODE MODAL -->
+  <div id="sandbox-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="sandbox-modal-title">
+    <div class="studio-card w-full max-w-6xl bg-white dark:bg-emerald-950 p-4 sm:p-6 max-h-[92vh] flex flex-col gap-4">
+      <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-emerald-900/10">
+        <div class="flex items-center gap-2.5">
+          <span class="badge-emerald">LIVE SANDBOX</span>
+          <h3 id="sandbox-modal-title" class="font-extrabold text-base sm:text-lg">Chạy thử dự án HTML</h3>
+        </div>
+        <div class="flex items-center gap-2">
+          <button type="button" class="btn-outline-emerald py-1.5 px-3 text-xs"
+                  onclick="copyTextToClipboard(document.getElementById('sandbox-code-editor').value, 'mã nguồn đang chỉnh sửa')">
+            📋 Copy Code
+          </button>
+          <button type="button" class="btn-emerald py-1.5 px-3.5 text-xs" onclick="runCustomSandboxCode()">
+            ▶ Cập nhật thay đổi
+          </button>
+          <button type="button" class="btn-outline-emerald py-1.5 px-3 text-xs" onclick="closeLiveSandbox()">
+            ✕ Đóng
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 flex-1 overflow-hidden" style="min-height: 440px;">
+        <!-- Live Preview Iframe (7 cols) -->
+        <div class="lg:col-span-7 flex flex-col rounded-xl overflow-hidden border border-emerald-800/20 bg-white">
+          <div class="px-3 py-1.5 bg-emerald-50 text-emerald-900 text-xs font-bold flex items-center justify-between border-b border-emerald-800/10">
+            <span>🖥️ Màn hình chạy thử trực tiếp (Interactive Preview)</span>
+            <span>HTML5 Canvas / DOM</span>
+          </div>
+          <iframe id="sandbox-iframe" title="Khung chạy thử HTML" class="w-full flex-1 border-0" style="min-height: 390px;"></iframe>
+        </div>
+
+        <!-- Live Editable Source Code (5 cols) -->
+        <div class="lg:col-span-5 flex flex-col rounded-xl overflow-hidden border border-emerald-800/20">
+          <div class="px-3 py-1.5 bg-emerald-900 text-white text-xs font-bold flex items-center justify-between">
+            <span>📝 Mã nguồn HTML (Có thể sửa trực tiếp)</span>
+            <span>UTF-8</span>
+          </div>
+          <textarea id="sandbox-code-editor" class="w-full flex-1 p-3 bg-emerald-950 text-emerald-100 font-mono-code text-xs border-0 focus:outline-none" style="min-height: 390px;"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+/* ==========================================================================
+   VĐĐ GREENCODE STUDIO - DYNAMIC APPLICATION LOGIC
+   ========================================================================== */
+
+const DEFAULT_PROJECTS = [
+  {
+    id: 'hcmc-12a3-slide',
+    title: 'Slide Thành Tựu Kinh Tế – Xã Hội TP.HCM (2021–2026) • Nhóm 7 12A3',
+    category: 'Presentation',
+    badge: 'SLIDE TƯƠNG TÁC • 12A3',
+    author: 'Nhóm 7 – Lớp 12A3',
+    costPoints: 0,
+    originalPoints: 500,
+    discountTag: 'MIỄN PHÍ',
+    updatedAt: '17/11/2026',
+    featured: true,
+    coverImg: 'https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=1000&q=80',
+    summary: 'Bài thuyết trình tương tác tổng hợp thành tựu kinh tế - xã hội TP.HCM giai đoạn 2021–2026: Phục hồi sau đại dịch, GRDP, Nghị quyết 98, Vành đai 3, Metro số 1, Nhà ga T3 và định hướng đô thị thông minh.',
+    promptText: 'Thiết kế slide HTML tương tác chủ đề Thành tựu kinh tế - xã hội TP.HCM giai đoạn 2021-2026 của Nhóm 7 lớp 12A3, hỗ trợ chuyển slide bằng phím mũi tên, bộ lọc năm và câu hỏi thảo luận.',
+    htmlSource: `<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Thành tựu TP.HCM 2021-2026 - Nhóm 7 12A3</title>
+<style>
+  body { margin:0; font-family: system-ui, sans-serif; background:#F8FAF8; color:#17251C; display:flex; flex-direction:column; min-height:100vh; }
+  header { background:#166534; color:#fff; padding:14px 24px; display:flex; justify-content:space-between; align-items:center; }
+  .slide-wrap { flex:1; max-width:920px; margin:24px auto; background:#fff; border:2px solid #DCFCE7; border-radius:20px; padding:32px; box-shadow:0 12px 30px rgba(22,101,52,0.08); }
+  .tag { display:inline-block; background:#DCFCE7; color:#166534; font-weight:700; padding:4px 12px; border-radius:999px; font-size:13px; margin-bottom:12px; }
+  h1 { color:#166534; margin:0 0 12px; font-size:28px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; margin-top:20px; }
+  .card { background:#F8FAF8; border:1px solid #DCFCE7; padding:16px; border-radius:14px; }
+  .card h3 { color:#166534; margin:0 0 6px; }
+  .controls { display:flex; justify-content:space-between; align-items:center; margin-top:28px; padding-top:16px; border-top:1px solid #DCFCE7; }
+  button { background:#22C55E; color:#fff; border:none; padding:10px 20px; border-radius:999px; font-weight:700; cursor:pointer; }
+  button:hover { background:#166534; }
+</style>
+</head>
+<body>
+  <header>
+    <strong>NHÓM 7 – LỚP 12A3 • THÀNH TỰU TP.HCM (2021–2026)</strong>
+    <span id="page-indicator">Slide 1 / 4</span>
+  </header>
+  <div class="slide-wrap">
+    <span class="tag" id="s-tag">GIAI ĐOẠN 2021 - 2026</span>
+    <h1 id="s-title">Tổng Quan Chuyển Đổi Kinh Tế & Hạ Tầng Đô Thị TP.HCM</h1>
+    <p id="s-desc">Hành trình phục hồi mạnh mẽ và bứt phá hạ tầng trọng điểm hướng tới siêu đô thị thông minh, trung tâm tài chính quốc tế.</p>
+    <div class="grid" id="s-cards"></div>
+    <div class="controls">
+      <button onclick="prevSlide()">← Slide trước</button>
+      <button onclick="nextSlide()">Slide tiếp theo →</button>
+    </div>
+  </div>
+  <script>
+    const slides = [
+      { tag:'2021 - 2022 • PHỤC HỒI & BỨT PHÁ', title:'Phục Hồi Kinh Tế Sau Đại Dịch & Tăng Trưởng GRDP', desc:'Kinh tế TP.HCM phục hồi nhanh chóng, GRDP năm 2022 tăng 9.03%, thu ngân sách vượt mốc 471.000 tỷ đồng.', items:[['An sinh xã hội','Hỗ trợ kịp thời người dân và doanh nghiệp tái sản xuất'],['GRDP 2022 (+9.03%)','Đà phục hồi ấn tượng dẫn đầu cả nước'],['Chuyển đổi số','Khởi động cổng dịch vụ công và kinh tế số']] },
+      { tag:'2023 - 2024 • CƠ CHẾ ĐẶC THÙ & HẠ TẦNG', title:'Nghị Quyết 98, Vành Đai 3 & Tuyến Metro Số 1', desc:'Triển khai cơ chế đặc thù Nghị quyết 98/2023/QH15, khởi công Vành đai 3 và vận hành thương mại Metro Bến Thành - Suối Tiên.', items:[['Nghị quyết 98','Cơ chế vượt trội thu hút nhà đầu tư chiến lược'],['Metro Số 1 & Vành Đai 3','Kết nối giao thông liên vùng Đông Nam Bộ'],['Trung tâm C4IR','Khánh thành Trung tâm Cách mạng Công nghiệp 4.0']] },
+      { tag:'CÂU HỎI NGHIÊN CỨU • THẢO LUẬN LỚP 12A3', title:'Câu Hỏi Nghiên Cứu Trọng Tâm Nhóm 7', desc:'Đâu là động lực cốt lõi giúp TP.HCM chuyển đổi mô hình tăng trưởng từ chiều rộng sang chiều sâu dựa trên công nghệ cao và kinh tế xanh giai đoạn 2025–2026?', items:[['Động lực Hạ tầng','Đồng bộ Nhà ga T3 Tân Sơn Nhất, Metro và cảng trung chuyển'],['Động lực Thể chế','Trung tâm Tài chính Quốc tế & cơ chế thử nghiệm Sandbox'],['Động lực Nhân lực','Đào tạo nhân lực AI, bán dẫn và chuyển đổi xanh']] },
+      { tag:'LỜI CẢM ƠN • NHÓM 7 LỚP 12A3', title:'Cảm Ơn Thầy Cô Và Các Bạn Đã Lắng Nghe!', desc:'Bài thuyết trình được thực hiện bởi tập thể Nhóm 7 – Lớp 12A3. Rất mong nhận được ý kiến đóng góp từ thầy cô và các bạn.', items:[['Biên soạn nội dung','Tổng hợp số liệu kinh tế - xã hội 2021-2026'],['Thiết kế tương tác','Giao diện HTML5 trực quan, hỗ trợ trình chiếu'],['Hỏi đáp & Thảo luận','Sẵn sàng trao đổi cùng các nhóm trong lớp']] }
+    ];
+    let idx = 0;
+    function render() {
+      const s = slides[idx];
+      document.getElementById('page-indicator').textContent = 'Slide ' + (idx+1) + ' / ' + slides.length;
+      document.getElementById('s-tag').textContent = s.tag;
+      document.getElementById('s-title').textContent = s.title;
+      document.getElementById('s-desc').textContent = s.desc;
+      document.getElementById('s-cards').innerHTML = s.items.map(i => '<div class="card"><h3>'+i[0]+'</h3><p>'+i[1]+'</p></div>').join('');
+    }
+    function prevSlide(){ idx = (idx - 1 + slides.length) % slides.length; render(); }
+    function nextSlide(){ idx = (idx + 1) % slides.length; render(); }
+    render();
+  <\/script>
+</body>
+</html>`
+  },
+  {
+    id: 'jet-jet-game',
+    title: 'Jet Jet – Vượt Bão Về Nhà (Mini-Game Trắc Nghiệm An Toàn Giao Thông)',
+    category: 'Game 2D',
+    badge: 'GAME 2D + QUIZ',
+    author: 'Vương Đình Đăng',
+    costPoints: 150,
+    originalPoints: 450,
+    discountTag: '-67%',
+    updatedAt: '16/11/2026',
+    featured: false,
+    coverImg: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=900&q=80',
+    summary: 'Trò chơi 2D điều khiển xe vượt chướng ngại vật kết hợp trả lời câu hỏi trắc nghiệm trên nền trời sáng, tự động cho phép chọn lại khi trả lời sai.',
+    promptText: 'Xây dựng game HTML5 Canvas 2D vượt chướng ngại vật kết hợp bảng câu hỏi trắc nghiệm trực tiếp, hiệu ứng xe di chuyển 2 giây khi trả lời đúng.',
+    htmlSource: `<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><title>Jet Jet – Vượt Bão Về Nhà</title>
+<style>
+  body { margin:0; font-family:system-ui,sans-serif; background:#E0F2FE; color:#17251C; text-align:center; padding:20px; }
+  .arena { max-width:720px; margin:0 auto; background:#FFFFFF; border-radius:20px; padding:20px; border:2px solid #22C55E; box-shadow:0 10px 25px rgba(22,101,52,0.1); }
+  .road { height:90px; background:#DCFCE7; border-radius:14px; position:relative; overflow:hidden; margin:16px 0; border:1px solid #22C55E; display:flex; align-items:center; }
+  .car { position:absolute; left:20px; font-size:38px; transition:left 2s ease-in-out; }
+  .home { position:absolute; right:20px; font-size:36px; }
+  .btn-ans { display:block; width:100%; text-align:left; margin:8px 0; padding:12px 16px; border-radius:12px; border:1px solid #166534; background:#F8FAF8; cursor:pointer; font-weight:600; }
+  .btn-ans:hover { background:#DCFCE7; }
+</style>
+</head>
+<body>
+  <div class="arena">
+    <h2 style="color:#166534;margin-top:0;">🚗 Jet Jet – Vượt Bão Về Nhà</h2>
+    <p id="status-msg">Trả lời đúng câu hỏi để xe tự động tiến về nhà trong 2 giây!</p>
+    <div class="road">
+      <div class="car" id="car">🚙</div>
+      <div class="home">🏡</div>
+    </div>
+    <div id="quiz-box">
+      <h3 id="q-text">Câu 1: Khi tham gia giao thông bằng xe đạp điện, người ngồi trên xe bắt buộc phải làm gì?</h3>
+      <button class="btn-ans" onclick="answer(true)">A. Đội mũ bảo hiểm có cài quai đúng quy cách</button>
+      <button class="btn-ans" onclick="answer(false)">B. Chỉ cần đội mũ khi đi đường quốc lộ</button>
+      <button class="btn-ans" onclick="answer(false)">C. Không cần đội mũ nếu đi dưới 20 km/h</button>
+    </div>
+  </div>
+  <script>
+    let pos = 20;
+    function answer(correct) {
+      const msg = document.getElementById('status-msg');
+      if(correct) {
+        pos = Math.min(pos + 220, 580);
+        document.getElementById('car').style.left = pos + 'px';
+        msg.style.color = '#166534';
+        msg.textContent = 'Chính xác! Xe đang di chuyển tiến về đích (2 giây)...';
+      } else {
+        msg.style.color = '#B91C1C';
+        msg.textContent = 'Chưa chính xác! Hãy chọn lại đáp án đúng ngay bên dưới nhé.';
+      }
+    }
+  <\/script>
+</body>
+</html>`
+  },
+  {
+    id: 'transformer-sim',
+    title: 'Mô Phỏng Nối Dây Vào Máy Biến Áp 1 Pha (Công Nghệ Điện)',
+    category: 'Simulation',
+    badge: 'MÔ PHỎNG KỸ THUẬT',
+    author: 'Vương Đình Đăng',
+    costPoints: 200,
+    originalPoints: 500,
+    discountTag: '-60%',
+    updatedAt: '14/11/2026',
+    featured: false,
+    coverImg: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=900&q=80',
+    summary: 'Ứng dụng tương tác trực quan mô phỏng sơ đồ đấu dây cuộn sơ cấp (U1) và thứ cấp (U2) của máy biến áp kèm công thức tính tỉ số biến áp k = N1/N2.',
+    promptText: 'Tạo ứng dụng HTML/JS mô phỏng nối dây vào máy biến áp và tính điện áp đầu ra U2 theo số vòng dây N1, N2 và điện áp sơ cấp U1.',
+    htmlSource: `<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><title>Mô Phỏng Nối Dây Máy Biến Áp</title>
+<style>
+  body { margin:0; font-family:system-ui,sans-serif; background:#F8FAF8; color:#17251C; padding:24px; }
+  .box { max-width:680px; margin:0 auto; background:#fff; border:2px solid #166534; border-radius:18px; padding:24px; }
+  label { display:block; font-weight:600; margin-top:12px; color:#166534; }
+  input { width:100%; padding:10px; border-radius:10px; border:1px solid #22C55E; margin-top:4px; }
+  .res { margin-top:18px; background:#DCFCE7; color:#166534; padding:16px; border-radius:12px; font-weight:700; font-size:18px; }
+</style>
+</head>
+<body>
+  <div class="box">
+    <h2 style="color:#166534;margin-top:0;">⚡ Mô Phỏng Nối Dây & Tính Tỉ Số Máy Biến Áp</h2>
+    <label>Điện áp sơ cấp U1 (V): <input type="number" id="u1" value="220" oninput="calc()"></label>
+    <label>Số vòng cuộn sơ cấp N1 (vòng): <input type="number" id="n1" value="1000" oninput="calc()"></label>
+    <label>Số vòng cuộn thứ cấp N2 (vòng): <input type="number" id="n2" value="100" oninput="calc()"></label>
+    <div class="res" id="out">Điện áp thứ cấp U2 = 22.00 V (Máy hạ áp • k = 10.00)</div>
+  </div>
+  <script>
+    function calc(){
+      const u1 = parseFloat(document.getElementById('u1').value) || 0;
+      const n1 = parseFloat(document.getElementById('n1').value) || 1;
+      const n2 = parseFloat(document.getElementById('n2').value) || 0;
+      const u2 = (u1 * n2) / n1;
+      const k = n2 > 0 ? (n1 / n2).toFixed(2) : '∞';
+      const type = u2 < u1 ? 'Máy hạ áp' : (u2 > u1 ? 'Máy tăng áp' : 'Giữ nguyên áp');
+      document.getElementById('out').textContent = 'Điện áp thứ cấp U2 = ' + u2.toFixed(2) + ' V (' + type + ' • k = ' + k + ')';
+    }
+  <\/script>
+</body>
+</html>`
+  },
+  {
+    id: 'math-oxyz-12',
+    title: 'Bài Tập Tương Tác Hình Học Không Gian Oxyz & Casio Table Toán 12',
+    category: 'Study Tool',
+    badge: 'TOÁN 12 GDPT 2018',
+    author: 'Vương Đình Đăng',
+    costPoints: 100,
+    originalPoints: 300,
+    discountTag: '-66%',
+    updatedAt: '15/11/2026',
+    featured: false,
+    coverImg: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=900&q=80',
+    summary: 'Công cụ tính nhanh tích có hướng hai vectơ, khoảng cách từ điểm đến mặt phẳng trong hệ trục Oxyz và tra cứu công thức cực trị hàm bậc ba.',
+    promptText: 'Tạo trang HTML công cụ giải nhanh hình học không gian Oxyz Toán 12: tính tích có hướng 2 vectơ, phương trình mặt phẳng và khoảng cách.',
+    htmlSource: `<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><title>Công Cụ Hình Học Oxyz Toán 12</title>
+<style>
+  body { margin:0; font-family:system-ui,sans-serif; background:#F8FAF8; color:#17251C; padding:24px; }
+  .card { max-width:680px; margin:0 auto; background:#fff; border:2px solid #22C55E; border-radius:18px; padding:24px; }
+  .row { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:12px; }
+  input { padding:10px; border-radius:8px; border:1px solid #166534; width:100%; box-sizing:border-box; }
+  .res { background:#DCFCE7; color:#166534; padding:14px; border-radius:12px; font-weight:700; margin-top:14px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h2 style="color:#166534;margin-top:0;">📐 Tính Nhanh Tích Có Hướng & Tích Vô Hướng Oxyz</h2>
+    <p>Nhập tọa độ vectơ u = (x1, y1, z1) và v = (x2, y2, z2):</p>
+    <div class="row">
+      <input type="number" id="x1" value="1" oninput="solve()">
+      <input type="number" id="y1" value="2" oninput="solve()">
+      <input type="number" id="z1" value="3" oninput="solve()">
+    </div>
+    <div class="row">
+      <input type="number" id="x2" value="4" oninput="solve()">
+      <input type="number" id="y2" value="5" oninput="solve()">
+      <input type="number" id="z2" value="6" oninput="solve()">
+    </div>
+    <div class="res" id="ans">[u, v] = (-3, 6, -3) | u · v = 32</div>
+  </div>
+  <script>
+    function solve(){
+      const x1=+document.getElementById('x1').value||0, y1=+document.getElementById('y1').value||0, z1=+document.getElementById('z1').value||0;
+      const x2=+document.getElementById('x2').value||0, y2=+document.getElementById('y2').value||0, z2=+document.getElementById('z2').value||0;
+      const cx = y1*z2 - z1*y2;
+      const cy = z1*x2 - x1*z2;
+      const cz = x1*y2 - y1*x2;
+      const dot = x1*x2 + y1*y2 + z1*z2;
+      document.getElementById('ans').textContent = '[u, v] = (' + cx + ', ' + cy + ', ' + cz + ') | u · v = ' + dot;
+    }
+  <\/script>
+</body>
+</html>`
+  },
+  {
+    id: 'fire-water-2d',
+    title: 'Cậu Bé Lửa & Cô Gái Nước 2D – Bản Thử Nghiệm Vật Lý Canvas',
+    category: 'Game 2D',
+    badge: 'PLATFORMER 2D',
+    author: 'Vương Đình Đăng',
+    costPoints: 250,
+    originalPoints: 600,
+    discountTag: '-58%',
+    updatedAt: '12/11/2026',
+    featured: false,
+    coverImg: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=900&q=80',
+    summary: 'Mô hình điều khiển 2 nhân vật song song (W-A-D và Phím mũi tên) kích hoạt công tắc đòn bẩy mở cửa qua màn trên HTML5 Canvas.',
+    promptText: 'Tạo game platformer 2D co-op 2 người chơi trên HTML5 Canvas với cơ chế đứng lên nút bấm mở cổng và thu thập ngọc.',
+    htmlSource: `<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><title>Platformer 2D Co-op Sandbox</title>
+<style>
+  body { margin:0; background:#0B150F; color:#DCFCE7; font-family:system-ui,sans-serif; text-align:center; padding:16px; }
+  canvas { background:#17251C; border:2px solid #22C55E; border-radius:16px; max-width:100%; }
+</style>
+</head>
+<body>
+  <h3 style="margin:0 0 8px;">🎮 Dùng phím A / D hoặc ⬅️ / ➡️ để di chuyển nhân vật tới Cổng Xanh</h3>
+  <canvas id="cv" width="600" height="240"></canvas>
+  <script>
+    const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+    let px = 60;
+    window.addEventListener('keydown', e => {
+      if(e.key==='ArrowRight'||e.key==='d'||e.key==='D') px = Math.min(540, px+18);
+      if(e.key==='ArrowLeft'||e.key==='a'||e.key==='A') px = Math.max(30, px-18);
+      draw();
+    });
+    function draw(){
+      ctx.clearRect(0,0,600,240);
+      ctx.fillStyle = '#166534'; ctx.fillRect(0,200,600,40);
+      ctx.fillStyle = '#22C55E'; ctx.fillRect(520,130,45,70);
+      ctx.fillStyle = '#DCFCE7'; ctx.beginPath(); ctx.arc(px,180,20,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 14px sans-serif';
+      ctx.fillText(px >= 500 ? '🎉 ĐÃ QUA MÀN!' : 'Nhân vật GreenBot', px - 45, 145);
+    }
+    draw();
+  <\/script>
+</body>
+</html>`
+  },
+  {
+    id: 'thpt-quiz-room',
+    title: 'Phòng Thi Trắc Nghiệm Khối A01 & Đánh Giá Năng Lực (Toán – Lý – Anh)',
+    category: 'Study Tool',
+    badge: 'LUYỆN THI THPT 2027',
+    author: 'Vương Đình Đăng',
+    costPoints: 0,
+    originalPoints: 400,
+    discountTag: 'MIỄN PHÍ',
+    updatedAt: '17/11/2026',
+    featured: false,
+    coverImg: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=900&q=80',
+    summary: 'Giao diện phòng luyện đề bấm giờ tự động chấm điểm cho tổ hợp A01 (Toán, Vật Lý, Tiếng Anh) và cấu trúc đề thi Đánh giá năng lực.',
+    promptText: 'Xây dựng web phòng thi trắc nghiệm trực tuyến có đồng hồ đếm ngược, bảng đánh dấu câu hỏi và chấm điểm tự động kèm giải thích.',
+    htmlSource: `<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><title>Phòng Thi Trắc Nghiệm Khối A01</title>
+<style>
+  body { margin:0; font-family:system-ui,sans-serif; background:#F8FAF8; color:#17251C; padding:24px; }
+  .exam { max-width:680px; margin:0 auto; background:#fff; border:2px solid #166534; border-radius:18px; padding:24px; }
+  .opt { display:block; width:100%; text-align:left; padding:12px; margin:8px 0; border-radius:10px; border:1px solid #22C55E; background:#F8FAF8; cursor:pointer; font-weight:600; }
+  .opt:hover { background:#DCFCE7; }
+</style>
+</head>
+<body>
+  <div class="exam">
+    <h2 style="color:#166534;margin-top:0;">⏱️ Phòng Thi Nhanh Khối A01 (Toán - Lý - Anh)</h2>
+    <p><strong>Câu hỏi Toán 12:</strong> Đạo hàm của hàm số y = x³ - 3x² + 2 tại điểm x = 3 bằng bao nhiêu?</p>
+    <button class="opt" onclick="check(true)">A. y'(3) = 9</button>
+    <button class="opt" onclick="check(false)">B. y'(3) = 0</button>
+    <button class="opt" onclick="check(false)">C. y'(3) = 6</button>
+    <p id="res-txt" style="font-weight:700;margin-top:14px;"></p>
+  </div>
+  <script>
+    function check(ok){
+      const el = document.getElementById('res-txt');
+      el.style.color = ok ? '#166534' : '#B91C1C';
+      el.textContent = ok ? '✅ Chính xác! y\' = 3x² - 6x => y\'(3) = 27 - 18 = 9.' : '❌ Chưa đúng, hãy tính lại y\'(x) = 3x² - 6x nhé!';
+    }
+  <\/script>
+</body>
+</html>`
+  }
+];
+
+const MASTER_PROMPTS = [
+  {
+    id: 'prompt-web-green',
+    title: 'Master Prompt v12.0 – Xây Dựng Website Công Nghệ Xanh Lá & Trắng',
+    tag: 'UI/UX FRONT-END',
+    desc: 'Câu lệnh chuẩn hóa bảng màu #166534, #22C55E, #DCFCE7 kèm hiệu ứng Glassmorphism, Toast Notification và kiểm tra Responsive đa thiết bị.',
+    content: 'Hãy đóng vai chuyên gia UI/UX và lập trình viên Front-end. Xây dựng website hoàn chỉnh bằng HTML5, CSS3, JavaScript với bảng màu Xanh lá đậm (#166534), Xanh lá chính (#22C55E), Xanh lá nhạt (#DCFCE7), Trắng (#FFFFFF), Nền phụ (#F8FAF8) và Chữ (#17251C). Đảm bảo tích hợp Live Preview, bộ lọc tức thì, Toast Notification, Dark Mode và tương thích GitHub Pages.'
+  },
+  {
+    id: 'prompt-slide-12a3',
+    title: 'Master Prompt – Tạo Slide Thuyết Trình HTML5 Tương Tác Trên Lớp',
+    tag: 'SLIDE HỌC TẬP',
+    desc: 'Mẫu câu lệnh biến nội dung bài thuyết trình nhóm thành ứng dụng web phóng to toàn màn hình, hỗ trợ phím mũi tên và câu hỏi thảo luận.',
+    content: 'Hãy thiết kế một bộ Slide thuyết trình tương tác chạy trực tiếp trên trình duyệt trong 1 file HTML duy nhất. Hỗ trợ chuyển slide mượt mà bằng phím mũi tên Trái/Phải, nút bật Toàn màn hình (Fullscreen), thanh tiến trình ở dưới cùng và trang Câu hỏi nghiên cứu thảo luận nhóm.'
+  },
+  {
+    id: 'prompt-game-quiz',
+    title: 'Master Prompt – Tạo Mini-Game 2D Kết Hợp Câu Hỏi Trắc Nghiệm',
+    tag: 'GAME GIÁO DỤC',
+    desc: 'Kịch bản lập trình game 2D Canvas vượt chướng ngại vật tích hợp bảng câu hỏi trắc nghiệm khách quan, tự động cho chọn lại khi sai.',
+    content: 'Xây dựng trò chơi 2D trên HTML5 Canvas kết hợp câu hỏi trắc nghiệm ôn tập kiến thức. Khi người chơi chọn đúng đáp án, nhân vật tiến lên phía trước trong 2 giây. Khi chọn sai, hiển thị gợi ý trực quan và cho phép chọn lại ngay mà không cần tải lại trang.'
+  },
+  {
+    id: 'prompt-github-deploy',
+    title: 'Cheat Sheet – Quy Trình 9 Bước Xuất Bản Website Lên GitHub Pages',
+    tag: 'DEVOPS & DEPLOY',
+    desc: 'Danh mục kiểm tra nhanh đảm bảo file index.html ở thư mục gốc /(root), cấu hình nhánh main và kiểm tra đường dẫn công khai.',
+    content: 'Quy trình triển khai GitHub Pages chuẩn: 1. Tạo Public Repo trên GitHub -> 2. Đặt index.html ở thư mục gốc /(root) -> 3. Vào Settings > Pages -> 4. Chọn Deploy from a branch -> 5. Chọn nhánh main và /(root) -> 6. Lưu cấu hình và truy cập https://<username>.github.io/<repo-name>/.'
+  }
+];
+
+let appState = {
+  activeTab: 'home',
+  searchQuery: '',
+  selectedCategory: 'All',
+  greenPoints: 4000,
+  unlockedIds: ['hcmc-12a3-slide', 'thpt-quiz-room'],
+  projects: [...DEFAULT_PROJECTS],
+  activeSandboxId: 'hcmc-12a3-slide',
+  deployChecklist: {
+    step1: true,
+    step2: true,
+    step3: true,
+    step4: true,
+    step5: false,
+    step6: false
+  }
+};
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem('vdd_greencode_studio_v1');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      appState.greenPoints = typeof parsed.greenPoints === 'number' ? parsed.greenPoints : 4000;
+      if (Array.isArray(parsed.unlockedIds)) appState.unlockedIds = parsed.unlockedIds;
+      if (Array.isArray(parsed.customProjects) && parsed.customProjects.length > 0) {
+        appState.projects = [...parsed.customProjects, ...DEFAULT_PROJECTS];
+      }
+    }
+  } catch (err) {
+    console.warn('Storage fallback active');
+  }
+}
+
+function saveState() {
+  try {
+    const customProjects = appState.projects.filter(p => p.isCustom);
+    localStorage.setItem('vdd_greencode_studio_v1', JSON.stringify({
+      greenPoints: appState.greenPoints,
+      unlockedIds: appState.unlockedIds,
+      customProjects
+    }));
+  } catch (err) {
+    // Ignore storage block in restricted iframe
+  }
+}
+
+function showToast(message, type = 'success') {
+  const container = document.getElementById('toast-container');
+  if (!container) return;
+  const item = document.createElement('div');
+  item.className = 'toast-item';
+  const icon = type === 'success' ? '✅' : (type === 'info' ? '🌿' : '⚠️');
+  item.innerHTML = `<span>${icon}</span><div>${message}</div>`;
+  container.appendChild(item);
+  setTimeout(() => {
+    item.style.opacity = '0';
+    item.style.transform = 'translateX(20px)';
+    item.style.transition = 'all 0.25s ease';
+    setTimeout(() => item.remove(), 260);
+  }, 3400);
+}
+
+function copyTextToClipboard(text, label = 'nội dung') {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast(`Đã sao chép ${label} vào bộ nhớ tạm!`);
+    }).catch(() => fallbackCopy(text, label));
+  } else {
+    fallbackCopy(text, label);
+  }
+}
+
+function fallbackCopy(text, label) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    showToast(`Đã sao chép ${label} thành công!`);
+  } catch (e) {
+    showToast('Không thể tự động sao chép, vui lòng chọn văn bản.', 'warn');
+  }
+  document.body.removeChild(ta);
+}
+
+function updatePointsDisplay() {
+  const ptsEl = document.getElementById('header-points-val');
+  if (ptsEl) ptsEl.textContent = appState.greenPoints.toLocaleString('vi-VN') + ' Điểm Xanh';
+}
+
+function addGreenPoints() {
+  appState.greenPoints += 1000;
+  saveState();
+  updatePointsDisplay();
+  showToast('Cộng thêm +1.000 Điểm Xanh học tập vào ví Studio của bạn!', 'info');
+}
+
+function switchSectionTab(tabName) {
+  appState.activeTab = tabName;
+  document.querySelectorAll('.nav-pill-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.tab === tabName);
+  });
+
+  const targetMap = {
+    home: 'hero-showcase-section',
+    projects: 'projects-catalog-section',
+    deploy: 'github-deploy-section'
+  };
+  const targetId = targetMap[tabName];
+  const el = document.getElementById(targetId);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function renderProjectsGrid() {
+  const grid = document.getElementById('projects-grid');
+  const countEl = document.getElementById('projects-count-label');
+  if (!grid) return;
+
+  const q = appState.searchQuery.trim().toLowerCase();
+  const cat = appState.selectedCategory;
+
+  const filtered = appState.projects.filter(p => {
+    const matchCat = cat === 'All' || p.category === cat;
+    const matchQ = !q || p.title.toLowerCase().includes(q) || p.summary.toLowerCase().includes(q) || p.badge.toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+
+  if (countEl) {
+    countEl.textContent = `Hiển thị ${filtered.length} / ${appState.projects.length} dự án HTML tương tác`;
+  }
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `
+      <div class="studio-card p-8 text-center col-span-full">
+        <p class="text-lg font-bold mb-2">Không tìm thấy dự án HTML phù hợp với từ khóa "${appState.searchQuery}"</p>
+        <p class="text-sm opacity-80 mb-4">Hãy thử xóa bộ lọc hoặc tải lên một file .html mới ở khung bên dưới.</p>
+        <button class="btn-emerald" onclick="resetProjectFilters()">Đặt lại bộ lọc</button>
+      </div>
+    `;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(p => {
+    const isUnlocked = p.costPoints === 0 || appState.unlockedIds.includes(p.id);
+    const priceTag = isUnlocked
+      ? `<span class="text-emerald-700 dark:text-emerald-300 font-extrabold text-lg">Đã mở khóa ✓</span>`
+      : `<span class="text-emerald-700 dark:text-emerald-300 font-extrabold text-lg">${p.costPoints} Điểm</span>
+         <span class="text-xs line-through opacity-60 ml-1">${p.originalPoints}</span>`;
+
+    return `
+      <article class="studio-card flex flex-col justify-between p-5">
+        <div>
+          <div class="relative rounded-xl overflow-hidden mb-4 border border-emerald-900/10 bg-emerald-950/5" style="height: 176px;">
+            <img src="${p.coverImg}" alt="${p.title}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                 onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22360%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23DCFCE7%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23166534%22 font-family=%22sans-serif%22 font-weight=%22bold%22 font-size=%2220%22>GreenCode HTML5</text></svg>';">
+            <div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
+              <span class="badge-emerald shadow-sm">
+                <span class="pulse-dot"></span> ${p.badge}
+              </span>
+            </div>
+            <span class="absolute top-3 right-3 bg-emerald-800 text-white text-xs font-bold px-2.5 py-1 rounded-full">
+              ${p.discountTag}
+            </span>
+          </div>
+
+          <div class="flex items-center justify-between text-xs opacity-75 mb-1.5">
+            <span>👤 ${p.author}</span>
+            <span>📅 ${p.updatedAt}</span>
+          </div>
+
+          <h3 class="font-bold text-base leading-snug mb-2">${p.title}</h3>
+          <p class="text-sm opacity-85 mb-4 line-clamp-3">${p.summary}</p>
+        </div>
+
+        <div class="pt-3 border-t border-emerald-900/10 flex flex-col gap-2.5">
+          <div class="flex items-center justify-between">
+            <div>${priceTag}</div>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-200">
+              ${p.category}
+            </span>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2 pt-1">
+            <button class="btn-emerald justify-center text-xs py-2 px-3" onclick="openLiveSandbox('${p.id}')">
+              ▶ Chạy thử
+            </button>
+            <button class="btn-outline-emerald justify-center text-xs py-2 px-3" onclick="handleCopyProjectHtml('${p.id}')">
+              📋 Copy HTML
+            </button>
+            <button class="btn-outline-emerald justify-center text-xs py-2 px-3" onclick="handleDownloadProjectHtml('${p.id}')">
+              ⬇ Tải .html
+            </button>
+          </div>
+        </div>
+      </article>
+    `;
+  }).join('');
+}
+
+function resetProjectFilters() {
+  appState.searchQuery = '';
+  appState.selectedCategory = 'All';
+  const sInput = document.getElementById('hero-search-input');
+  if (sInput) sInput.value = '';
+  document.querySelectorAll('.cat-filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.cat === 'All');
+  });
+  renderProjectsGrid();
+}
+
+function filterByCategory(cat) {
+  appState.selectedCategory = cat;
+  document.querySelectorAll('.cat-filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.cat === cat);
+  });
+  renderProjectsGrid();
+}
+
+function openLiveSandbox(projectId) {
+  const proj = appState.projects.find(p => p.id === projectId);
+  if (!proj) return;
+
+  if (proj.costPoints > 0 && !appState.unlockedIds.includes(proj.id)) {
+    if (appState.greenPoints >= proj.costPoints) {
+      appState.greenPoints -= proj.costPoints;
+      appState.unlockedIds.push(proj.id);
+      saveState();
+      updatePointsDisplay();
+      showToast(`Đã mở khóa "${proj.title}" (-${proj.costPoints} Điểm Xanh)!`);
+      renderProjectsGrid();
+    } else {
+      showToast('Không đủ Điểm Xanh! Hãy bấm nút "+ Nhận Điểm" trên thanh công cụ nhé.', 'warn');
+      return;
+    }
+  }
+
+  appState.activeSandboxId = proj.id;
+  const modal = document.getElementById('sandbox-modal');
+  const titleEl = document.getElementById('sandbox-modal-title');
+  const iframe = document.getElementById('sandbox-iframe');
+  const codeArea = document.getElementById('sandbox-code-editor');
+
+  if (titleEl) titleEl.textContent = proj.title;
+  if (iframe) iframe.srcdoc = proj.htmlSource;
+  if (codeArea) codeArea.value = proj.htmlSource;
+  if (modal) modal.classList.add('open');
+}
+
+function closeLiveSandbox() {
+  const modal = document.getElementById('sandbox-modal');
+  if (modal) modal.classList.remove('open');
+}
+
+function runCustomSandboxCode() {
+  const codeArea = document.getElementById('sandbox-code-editor');
+  const iframe = document.getElementById('sandbox-iframe');
+  if (codeArea && iframe) {
+    iframe.srcdoc = codeArea.value;
+    showToast('Đã cập nhật bản xem trước HTML trực tiếp!');
+  }
+}
+
+function handleCopyProjectHtml(projectId) {
+  const proj = appState.projects.find(p => p.id === projectId);
+  if (!proj) return;
+  copyTextToClipboard(proj.htmlSource, `mã nguồn HTML của "${proj.title}"`);
+}
+
+function handleDownloadProjectHtml(projectId) {
+  const proj = appState.projects.find(p => p.id === projectId);
+  if (!proj) return;
+  const blob = new Blob([proj.htmlSource], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${proj.id}.html`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast(`Đã tải xuống file ${proj.id}.html!`);
+}
+
+function renderMasterPrompts() {
+  const listEl = document.getElementById('master-prompts-list');
+  if (!listEl) return;
+  listEl.innerHTML = MASTER_PROMPTS.map(item => `
+    <div class="studio-card p-5 flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between gap-2 mb-2">
+          <span class="badge-emerald">${item.tag}</span>
+          <span class="text-xs font-mono-code opacity-70">1-Click Copy</span>
+        </div>
+        <h4 class="font-bold text-base mb-1.5">${item.title}</h4>
+        <p class="text-sm opacity-80 mb-3">${item.desc}</p>
+        <div class="p-3 rounded-xl bg-emerald-950/5 dark:bg-emerald-950/40 border border-emerald-900/10 text-xs font-mono-code mb-4">
+          ${item.content}
+        </div>
+      </div>
+      <button class="btn-emerald w-full justify-center text-xs" onclick="copyPromptById('${item.id}')">
+        📋 Sao chép Master Prompt ngay
+      </button>
+    </div>
+  `).join('');
+}
+
+function copyPromptById(promptId) {
+  const item = MASTER_PROMPTS.find(p => p.id === promptId);
+  if (!item) return;
+  copyTextToClipboard(item.content, item.title);
+}
+
+function handleHtmlFileUpload(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+  if (!file.name.toLowerCase().endsWith('.html') && !file.name.toLowerCase().endsWith('.htm')) {
+    showToast('Vui lòng chọn định dạng file .html hoặc .htm hợp lệ!', 'warn');
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const content = e.target.result;
+    const titleInput = document.getElementById('new-proj-title');
+    if (titleInput && !titleInput.value.trim()) {
+      titleInput.value = file.name.replace(/\.html?$/i, '');
+    }
+    const codeInput = document.getElementById('new-proj-code');
+    if (codeInput) {
+      codeInput.value = content;
+    }
+    showToast(`Đã nạp nội dung file "${file.name}" vào khung soạn thảo!`);
+  };
+  reader.readAsText(file);
+}
+
+function handleCreateCustomProject(event) {
+  event.preventDefault();
+  const titleEl = document.getElementById('new-proj-title');
+  const catEl = document.getElementById('new-proj-category');
+  const summaryEl = document.getElementById('new-proj-summary');
+  const codeEl = document.getElementById('new-proj-code');
+  const errEl = document.getElementById('form-error-msg');
+
+  const title = titleEl ? titleEl.value.trim() : '';
+  const category = catEl ? catEl.value : 'Study Tool';
+  const summary = summaryEl ? summaryEl.value.trim() : '';
+  const htmlSource = codeEl ? codeEl.value.trim() : '';
+
+  if (title.length < 4) {
+    if (errEl) {
+      errEl.textContent = '⚠️ Vui lòng nhập tên dự án HTML tối thiểu 4 ký tự.';
+      errEl.classList.remove('hidden');
+    }
+    showToast('Tên dự án chưa hợp lệ!', 'warn');
+    return;
+  }
+
+  if (htmlSource.length < 15 || !htmlSource.includes('<')) {
+    if (errEl) {
+      errEl.textContent = '⚠️ Mã nguồn HTML cần chứa thẻ hợp lệ (ví dụ: <h1>, <div>, <!DOCTYPE html>).';
+      errEl.classList.remove('hidden');
+    }
+    showToast('Vui lòng dán mã HTML hoặc tải file .html lên!', 'warn');
+    return;
+  }
+
+  if (errEl) errEl.classList.add('hidden');
+
+  const newProj = {
+    id: 'custom-' + Date.now(),
+    title,
+    category,
+    badge: 'DỰ ÁN MỚI TẢI LÊN',
+    author: 'Vương Đình Đăng',
+    costPoints: 0,
+    originalPoints: 200,
+    discountTag: 'MỚI',
+    updatedAt: 'Hôm nay',
+    featured: false,
+    isCustom: true,
+    coverImg: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=900&q=80',
+    summary: summary || 'Dự án HTML tương tác được thêm trực tiếp từ trình quản lý VĐĐ GreenCode Studio.',
+    promptText: 'Dự án HTML tùy chỉnh',
+    htmlSource
+  };
+
+  appState.projects.unshift(newProj);
+  appState.unlockedIds.push(newProj.id);
+  saveState();
+  renderProjectsGrid();
+
+  if (titleEl) titleEl.value = '';
+  if (summaryEl) summaryEl.value = '';
+  if (codeEl) codeEl.value = '';
+
+  showToast(`Đã thêm dự án "${newProj.title}" vào kho lưu trữ và mở chạy thử!`);
+  openLiveSandbox(newProj.id);
+}
+
+function generateGitHubCommands() {
+  const userEl = document.getElementById('gh-username-input');
+  const repoEl = document.getElementById('gh-reponame-input');
+  const username = (userEl && userEl.value.trim()) ? userEl.value.trim() : 'vuongdinhdang';
+  const reponame = (repoEl && repoEl.value.trim()) ? repoEl.value.trim() : 'greencode-html-hub';
+
+  const publicUrl = `https://${username}.github.io/${reponame}/`;
+  const repoUrl = `https://github.com/${username}/${reponame}`;
+
+  const urlPreview = document.getElementById('gh-public-url-preview');
+  const repoPreview = document.getElementById('gh-repo-url-preview');
+  const cmdBox = document.getElementById('gh-cli-commands');
+
+  if (urlPreview) urlPreview.textContent = publicUrl;
+  if (repoPreview) repoPreview.textContent = repoUrl;
+  if (cmdBox) {
+    cmdBox.textContent = `git init
+git add index.html style.css script.js README.md assets/
+git commit -m "Deploy VĐĐ GreenCode Studio to GitHub Pages"
+git branch -M main
+git remote add origin https://github.com/${username}/${reponame}.git
+git push -u origin main`;
+  }
+}
+
+function toggleDarkMode() {
+  document.documentElement.classList.toggle('dark');
+  const isDark = document.documentElement.classList.contains('dark');
+  const btn = document.getElementById('theme-toggle-btn');
+  if (btn) btn.textContent = isDark ? '☀️ Sáng' : '🌙 Tối';
+  showToast(isDark ? 'Đã bật giao diện Dark Emerald!' : 'Đã chuyển về giao diện Sáng chuẩn Xanh Lá – Trắng!', 'info');
+}
+
+function initScrollReveal() {
+  const items = document.querySelectorAll('.reveal-item');
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+        }
+      });
+    }, { threshold: 0.08 });
+    items.forEach(el => observer.observe(el));
+  } else {
+    items.forEach(el => el.classList.add('revealed'));
+  }
+}
+
+function bootStudioApp() {
+  if (window.__studioBooted) return;
+  window.__studioBooted = true;
+  loadState();
+  updatePointsDisplay();
+  renderProjectsGrid();
+  renderMasterPrompts();
+  generateGitHubCommands();
+  initScrollReveal();
+
+  // Hide loading overlay smoothly
+  setTimeout(() => {
+    const loader = document.getElementById('loader-overlay');
+    if (loader) loader.classList.add('hidden-loader');
+  }, 380);
+
+  // Search Input Binding
+  const searchInput = document.getElementById('hero-search-input');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      appState.searchQuery = e.target.value;
+      renderProjectsGrid();
+    });
+  }
+
+  // Mobile Menu Toggle
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileDrawer = document.getElementById('mobile-nav-drawer');
+  if (mobileMenuBtn && mobileDrawer) {
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileDrawer.classList.toggle('hidden');
+    });
+  }
+
+  // Scroll Header & Back-to-top button
+  const header = document.getElementById('main-header');
+  const backTopBtn = document.getElementById('back-to-top-btn');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 24) {
+      if (header) header.classList.add('scrolled');
+    } else {
+      if (header) header.classList.remove('scrolled');
+    }
+    if (backTopBtn) {
+      backTopBtn.style.display = window.scrollY > 280 ? 'inline-flex' : 'none';
+    }
+  });
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bootStudioApp);
+} else {
+  bootStudioApp();
+}
+
+  </script>
+</body>
+</html>
